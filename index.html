@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://www.nytimes.com/games-assets/v2/7015.2e43b2733cf16f423a26.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://www.nytimes.com/games-assets/v2/wordle.6e288c18cdadb1e2640a.css">
+    <link rel="icon" href="./favicon/favicon.ico" type="image/x-icon">
+    <style>
+        @keyframes shake {
+            0% {
+                transform: translate(1px, 1px) rotate(0deg);
+            }
+
+            10% {
+                transform: translate(-1px, -2px) rotate(-1deg);
+            }
+
+            20% {
+                transform: translate(-3px, 0px) rotate(1deg);
+            }
+
+            30% {
+                transform: translate(3px, 2px) rotate(0deg);
+            }
+
+            40% {
+                transform: translate(1px, -1px) rotate(1deg);
+            }
+
+            50% {
+                transform: translate(-1px, 2px) rotate(-1deg);
+            }
+
+            60% {
+                transform: translate(-3px, 1px) rotate(0deg);
+            }
+
+            70% {
+                transform: translate(3px, 1px) rotate(-1deg);
+            }
+
+            80% {
+                transform: translate(-1px, -1px) rotate(1deg);
+            }
+
+            90% {
+                transform: translate(1px, 2px) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(1px, -2px) rotate(-1deg);
+            }
+        }
+
+        /* Pop animation using keyframes */
+        @keyframes pop {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Class to trigger the pop animation */
+        .pop {
+            animation: pop 0.1s ease-in-out;
+        }
+
+        /* Apply the shake animation to an element */
+        .shake {
+            animation: shake 0.5s;
+            animation-iteration-count: 1;
+        }
+
+        .title {
+            color: white;
+            font-size: 80px;
+            margin-top: 30px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .play-again {
+            height: 50px;
+            width: 100px;
+            border-radius: 15%;
+
+        }
+
+        body {
+            background-color: black;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #f1f1f1;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .relative {
+            position: relative;
+        }
+
+        .absolute {
+            line-height: 0 !important;
+            margin: 0 !important;
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+        }
+
+        #secret {
+            color: white;
+            font-size: x-large;
+        }
+    </style>
+    <title>Wordle | Ez</title>
+</head>
+
+<body class="relative">
+    <div class="absolute">
+        <h1 id="secret" class="title">     </h1>
+    </div>
+
+    <h1 id="title" class="title">Wordle</h1>
+    <main class="App-module_game__yruqo" id="wordle-app-game"
+        style="max-height: calc(100% - 210px - var(--header-height));">
+
+        <div class="Board-module_boardContainer__TBHNL">
+            <div class="Board-module_board__jeoPS" style="width: 350px; height: 420px;">
+                <div class="Row-module_row__pwpBq" role="group" aria-label="Row 1">
+                    <div class="" style="animation-delay: 0ms;">
+                        <div class="Tile-module_tile__UWEHN" role="img" aria-roledescription="tile"
+                            aria-label="1st letter, empty" data-state="empty" data-animation="idle" data-testid="tile"
+                            aria-live="off"></div>
+                    </div>
+                    <div class="" style="animation-delay: 100ms;">
+                        <div class="Tile-module_tile__UWEHN" role="img" aria-roledescription="tile"
+                            aria-label="2nd letter, empty" data-state="empty" data-animation="idle" data-testid="tile"
+                            aria-live="off"></div>
+                    </div>
+                    <div class="" style="animation-delay: 200ms;">
+                        <div class="Tile-module_tile__UWEHN" role="img" aria-roledescription="tile"
+                            aria-label="3rd letter, empty" data-state="empty" data-animation="idle" data-testid="tile"
+                            aria-live="off"></div>
+                    </div>
+                    <div class="" style="animation-delay: 300ms;">
+                        <div class="Tile-module_tile__UWEHN" role="img" aria-roledescription="tile"
+                            aria-label="4th letter, empty" data-state="empty" data-animation="idle" data-testid="tile"
+                            aria-live="off"></div>
+                    </div>
+                    <div class="" style="animation-delay: 400ms;">
+                        <div class="Tile-module_tile__UWEHN" role="img" aria-roledescription="tile"
+                            aria-label="5th letter, empty" data-state="empty" data-animation="idle" data-testid="tile"
+                            aria-live="off"></div>
+                    </div>
+                </div>
+                <div class="Row-module_row__pwpBq" role="group" aria-label="Row 2">
+                    <div class="" style="animation-delay: 0ms;">
+                        <div class="Tile-module_tile__UWEHN" role="img" aria-roledescription="tile"
+                            aria-label="1st letter, empty" data-state="empty" data-animation="idle" data-testid="tile"
+                            aria-live="off"></div>
+                    </div>
+                    <div class="" style="animation-delay: 100ms;">
+                        <div class="Tile-module_tile__UWEHN" role="img" aria-roledescription="tile"
+                            aria-label="2nd letter, empty" data-state="empty" data-animation="idle" data-testid="tile"
+                            aria-live="off"></div>
+                    </div>
+                    <div class="" style="animation-delay: 200ms;">
+                        <div class="Tile-module_tile__UWEHN" role="img" aria-roledescription="tile"
+                            aria-label="3rd letter, empty" data-state="empty" data-animation="idle" data-testid="tile"
+                            aria-live="off"></div>
+                    </div>
+                    <div class="" style="animation-delay: 300ms;">
+                        <div class="Tile-module_tile__UWEHN" role="img" aria-roledescription="tile"
+                            aria-label="4th letter, empty" data-state="empty" data-animation="idle" data-testid="tile"
+                            aria-live="off"></div>
+                    </div>
+                    <div class="" style="animation-delay: 400ms;">
+                        <div class="Tile-module_tile__UWEHN" role="img" aria-roledescription="tile"
+                            aria-label="5th letter, empty" data-state="empty" data-animation="idle" data-testid="tile"
+                            aria-live="off"></div>
+                    </div>
+                </div>
+                <div class="Row-module_row__pwpBq" role="group" aria-label="Row 3">
+                    <div class="" style="animation-delay: 0ms;">
+                        <div class="Tile-module_tile__UWEHN" role="img" aria-roledescription="tile"
+                            aria-label="1st letter, empty" data-state="empty" data-animation="idle" data-testid="tile"
+                            aria-live="off"></div>
+                    </div>
+                    <div class="" style="animation-delay: 100ms;">
+                        <div class="Tile-module_tile__UWEHN" role="img" aria-roledescription="tile"
+                            aria-label="2nd letter, empty" data-state="empty" data-animation="idle" data-testid="tile"
+                            aria-live="off"></div>
+                    </div>
+                    <div class="" style="animation-delay: 200ms;">
+                        <div class="Tile-module_tile__UWEHN" role="img" aria-roledescription="tile"
+                            aria-label="3rd letter, empty" data-state="empty" data-animation="idle" data-testid="tile"
+                            aria-live="off"></div>
+                    </div>
+                    <div class="" style="animation-delay: 300ms;">
+                        <div class="Tile-module_tile__UWEHN" role="img" aria-roledescription="tile"
+                            aria-label="4th letter, empty" data-state="empty" data-animation="idle" data-testid="tile"
+                            aria-live="off"></div>
+                    </div>
+                    <div class="" style="animation-delay: 400ms;">
+                        <div class="Tile-module_tile__UWEHN" role="img" aria-roledescription="tile"
+                            aria-label="5th letter, empty" data-state="empty" data-animation="idle" data-testid="tile"
+                            aria-live="off"></div>
+                    </div>
+                </div>
+                <div class="Row-module_row__pwpBq" role="group" aria-label="Row 4">
+                    <div class="" style="animation-delay: 0ms;">
+                        <div class="Tile-module_tile__UWEHN" role="img" aria-roledescription="tile"
+                            aria-label="1st letter, empty" data-state="empty" data-animation="idle" data-testid="tile"
+                            aria-live="off"></div>
+                    </div>
+                    <div class="" style="animation-delay: 100ms;">
+                        <div class="Tile-module_tile__UWEHN" role="img" aria-roledescription="tile"
+                            aria-label="2nd letter, empty" data-state="empty" data-animation="idle" data-testid="tile"
+                            aria-live="off"></div>
+                    </div>
+                    <div class="" style="animation-delay: 200ms;">
+                        <div class="Tile-module_tile__UWEHN" role="img" aria-roledescription="tile"
+                            aria-label="3rd letter, empty" data-state="empty" data-animation="idle" data-testid="tile"
+                            aria-live="off"></div>
+                    </div>
+                    <div class="" style="animation-delay: 300ms;">
+                        <div class="Tile-module_tile__UWEHN" role="img" aria-roledescription="tile"
+                            aria-label="4th letter, empty" data-state="empty" data-animation="idle" data-testid="tile"
+                            aria-live="off"></div>
+                    </div>
+                    <div class="" style="animation-delay: 400ms;">
+                        <div class="Tile-module_tile__UWEHN" role="img" aria-roledescription="tile"
+                            aria-label="5th letter, empty" data-state="empty" data-animation="idle" data-testid="tile"
+                            aria-live="off"></div>
+                    </div>
+                </div>
+                <div class="Row-module_row__pwpBq" role="group" aria-label="Row 5">
+                    <div class="" style="animation-delay: 0ms;">
+                        <div class="Tile-module_tile__UWEHN" role="img" aria-roledescription="tile"
+                            aria-label="1st letter, empty" data-state="empty" data-animation="idle" data-testid="tile"
+                            aria-live="off"></div>
+                    </div>
+                    <div class="" style="animation-delay: 100ms;">
+                        <div class="Tile-module_tile__UWEHN" role="img" aria-roledescription="tile"
+                            aria-label="2nd letter, empty" data-state="empty" data-animation="idle" data-testid="tile"
+                            aria-live="off"></div>
+                    </div>
+                    <div class="" style="animation-delay: 200ms;">
+                        <div class="Tile-module_tile__UWEHN" role="img" aria-roledescription="tile"
+                            aria-label="3rd letter, empty" data-state="empty" data-animation="idle" data-testid="tile"
+                            aria-live="off"></div>
+                    </div>
+                    <div class="" style="animation-delay: 300ms;">
+                        <div class="Tile-module_tile__UWEHN" role="img" aria-roledescription="tile"
+                            aria-label="4th letter, empty" data-state="empty" data-animation="idle" data-testid="tile"
+                            aria-live="off"></div>
+                    </div>
+                    <div class="" style="animation-delay: 400ms;">
+                        <div class="Tile-module_tile__UWEHN" role="img" aria-roledescription="tile"
+                            aria-label="5th letter, empty" data-state="empty" data-animation="idle" data-testid="tile"
+                            aria-live="off"></div>
+                    </div>
+                </div>
+                <div class="Row-module_row__pwpBq" role="group" aria-label="Row 6">
+                    <div class="" style="animation-delay: 0ms;">
+                        <div class="Tile-module_tile__UWEHN" role="img" aria-roledescription="tile"
+                            aria-label="1st letter, empty" data-state="empty" data-animation="idle" data-testid="tile"
+                            aria-live="off"></div>
+                    </div>
+                    <div class="" style="animation-delay: 100ms;">
+                        <div class="Tile-module_tile__UWEHN" role="img" aria-roledescription="tile"
+                            aria-label="2nd letter, empty" data-state="empty" data-animation="idle" data-testid="tile"
+                            aria-live="off"></div>
+                    </div>
+                    <div class="" style="animation-delay: 200ms;">
+                        <div class="Tile-module_tile__UWEHN" role="img" aria-roledescription="tile"
+                            aria-label="3rd letter, empty" data-state="empty" data-animation="idle" data-testid="tile"
+                            aria-live="off"></div>
+                    </div>
+                    <div class="" style="animation-delay: 300ms;">
+                        <div class="Tile-module_tile__UWEHN" role="img" aria-roledescription="tile"
+                            aria-label="4th letter, empty" data-state="empty" data-animation="idle" data-testid="tile"
+                            aria-live="off"></div>
+                    </div>
+                    <div class="" style="animation-delay: 400ms;">
+                        <div class="Tile-module_tile__UWEHN" role="img" aria-roledescription="tile"
+                            aria-label="5th letter, empty" data-state="empty" data-animation="idle" data-testid="tile"
+                            aria-live="off"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="Keyboard-module_keyboard__uYuqf" role="group" aria-label="Keyboard">
+            <div class="Keyboard-module_row__ilOKU">
+                <button type="button" data-key="q" aria-label="add q" aria-disabled="false"
+                    class="Key-module_key__kchQI">q</button>
+                <button type="button" data-key="w" aria-label="add w" aria-disabled="false"
+                    class="Key-module_key__kchQI">w</button><button type="button" data-key="e" aria-label="add e"
+                    aria-disabled="false" class="Key-module_key__kchQI">e</button><button type="button" data-key="r"
+                    aria-label="add r" aria-disabled="false" class="Key-module_key__kchQI">r</button><button
+                    type="button" data-key="t" aria-label="add t" aria-disabled="false"
+                    class="Key-module_key__kchQI">t</button><button type="button" data-key="y" aria-label="add y"
+                    aria-disabled="false" class="Key-module_key__kchQI">y</button><button type="button" data-key="u"
+                    aria-label="add u" aria-disabled="false" class="Key-module_key__kchQI">u</button><button
+                    type="button" data-key="i" aria-label="add i" aria-disabled="false"
+                    class="Key-module_key__kchQI">i</button><button type="button" data-key="o" aria-label="add o"
+                    aria-disabled="false" class="Key-module_key__kchQI">o</button><button type="button" data-key="p"
+                    aria-label="add p" aria-disabled="false" class="Key-module_key__kchQI">p</button>
+            </div>
+            <div class="Keyboard-module_row__ilOKU">
+                <div data-testid="spacer" class="Key-module_half__HooWu"></div><button type="button" data-key="a"
+                    aria-label="add a" aria-disabled="false" class="Key-module_key__kchQI">a</button><button
+                    type="button" data-key="s" aria-label="add s" aria-disabled="false"
+                    class="Key-module_key__kchQI">s</button><button type="button" data-key="d" aria-label="add d"
+                    aria-disabled="false" class="Key-module_key__kchQI">d</button><button type="button" data-key="f"
+                    aria-label="add f" aria-disabled="false" class="Key-module_key__kchQI">f</button><button
+                    type="button" data-key="g" aria-label="add g" aria-disabled="false"
+                    class="Key-module_key__kchQI">g</button><button type="button" data-key="h" aria-label="add h"
+                    aria-disabled="false" class="Key-module_key__kchQI">h</button><button type="button" data-key="j"
+                    aria-label="add j" aria-disabled="false" class="Key-module_key__kchQI">j</button><button
+                    type="button" data-key="k" aria-label="add k" aria-disabled="false"
+                    class="Key-module_key__kchQI">k</button><button type="button" data-key="l" aria-label="add l"
+                    aria-disabled="false" class="Key-module_key__kchQI">l</button>
+                <div data-testid="spacer" class="Key-module_half__HooWu"></div>
+            </div>
+            <div class="Keyboard-module_row__ilOKU"><button type="button" data-key="↵" aria-label="enter"
+                    aria-disabled="true"
+                    class="Key-module_key__kchQI Key-module_oneAndAHalf__bq8Tw">enter</button><button type="button"
+                    data-key="z" aria-label="add z" aria-disabled="false"
+                    class="Key-module_key__kchQI">z</button><button type="button" data-key="x" aria-label="add x"
+                    aria-disabled="false" class="Key-module_key__kchQI">x</button><button type="button" data-key="c"
+                    aria-label="add c" aria-disabled="false" class="Key-module_key__kchQI">c</button><button
+                    type="button" data-key="v" aria-label="add v" aria-disabled="false"
+                    class="Key-module_key__kchQI">v</button><button type="button" data-key="b" aria-label="add b"
+                    aria-disabled="false" class="Key-module_key__kchQI">b</button><button type="button" data-key="n"
+                    aria-label="add n" aria-disabled="false" class="Key-module_key__kchQI">n</button><button
+                    type="button" data-key="m" aria-label="add m" aria-disabled="false"
+                    class="Key-module_key__kchQI">m</button><button type="button" data-key="←" aria-label="backspace"
+                    aria-disabled="true" class="Key-module_key__kchQI Key-module_oneAndAHalf__bq8Tw"><svg
+                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20"
+                        class="game-icon" data-testid="icon-backspace">
+                        <path fill="var(--color-tone-1)"
+                            d="M22 3H7c-.69 0-1.23.35-1.59.88L0 12l5.41 8.11c.36.53.9.89 1.59.89h15c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H7.07L2.4 12l4.66-7H22v14zm-11.59-2L14 13.41 17.59 17 19 15.59 15.41 12 19 8.41 17.59 7 14 10.59 10.41 7 9 8.41 12.59 12 9 15.59z">
+                        </path>
+                    </svg></button></div>
+        </div>
+    </main>
+    <br>
+
+    <div id="play-again" class="hidden">
+        <a href="./index.html">
+            <button class="play-again">Play again!</button>
+        </a>
+    </div>
+
+    <footer>
+        <p>&copy; <span id="year"></span> hmdfrds. All rights reserved.</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <script type="module" src="./wordle.js"></script>
+</body>
+
+</html>
