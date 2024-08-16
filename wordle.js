@@ -1,4 +1,4 @@
-//import { words } from './words.js';
+import { words } from './words.js';
 
 var userAnswer = [];
 var boardRow = $(".Row-module_row__pwpBq");
@@ -6,7 +6,7 @@ var keyboard = $(".Key-module_key__kchQI").toArray();
 const myMap = new Map();
 var currentRow = 0;
 var wait = false;
-var isPlaying = false;
+var isPlaying = true;
 //default
 var answer = ["A", "D", "I", "E", "U"];
 
@@ -24,8 +24,9 @@ var answer = ["A", "D", "I", "E", "U"];
  */
 
 //using imported words
-answer = [];
-var words = [];
+$("#secret").html("&nbsp&nbsp&nbsp&nbsp&nbsp");
+answer = getRandomItem(words);
+console.log(answer);
 $(".absolute").on("mouseenter", function() {
     console.log("test")
             $("#secret").html(answer);
@@ -36,17 +37,7 @@ $(".absolute").on("mouseleave", function() {
 });
 
 //using .txt file
-fetch('words.txt')
-    .then(response => response.text()
-    )
-    .then(data => {
-        words = data.toUpperCase().split("\r\n");
-        answer = getRandomItem(words).trim("").split("");
-        console.log(answer);
-        console.log(words);
-        $("#secret").html("&nbsp&nbsp&nbsp&nbsp&nbsp");
-        isPlaying = true;
-    })
+
 
 startGame();
 $("#title").html("Wordle");
@@ -56,7 +47,7 @@ $("#title").html("Wordle");
 function getRandomItem(arr) {
     if (arr.length === 0) return undefined; // Handle empty array case
     const randomIndex = Math.floor(Math.random() * arr.length);
-    return arr[randomIndex];
+    return arr[randomIndex].toUpperCase();
 }
 
 function startGame() {
@@ -84,7 +75,7 @@ function takeInput(input) {
 
                 wait = true;
                 console.log(userAnswer);
-                if (words.includes(userAnswer.join("").toUpperCase())) {
+                if (words.includes(userAnswer.join("").toLowerCase())) {
                     if (checkAnswer()) {
                         $("#title").html("You WIN! Press ENTER to play again").css("title");
                         $("#play-again").toggleClass("hidden");
